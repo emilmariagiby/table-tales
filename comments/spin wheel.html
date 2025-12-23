@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spin the Wheel - Food Offers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: white;
+      padding: 50px;
+    }
+
+    h1 {
+      color:#ff3d3d;
+    }
+
+    .wheel-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      margin: 40px auto;
+    }
+
+    .wheel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%; /* Makes the div a perfect circle */
+      border: 8px solid #ff9800;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Soft shadow around the wheel */
+      
+      /* Divides the wheel into colored slices like a pie using conic gradient */
+      background: conic-gradient(
+        #ffe0b2 0deg 45deg,
+        #ffcc80 45deg 90deg,
+        #ffe0b2 90deg 135deg,
+        #ffcc80 135deg 180deg,
+        #ffe0b2 180deg 225deg,
+        #ffcc80 225deg 270deg,
+        #ffe0b2 270deg 315deg,
+        #ffcc80 315deg 360deg
+      );
+
+      /* Smooth spin animation with bounce at the end */
+      transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    .label {
+      position: absolute;
+      width: 150px;
+      left: 50%;
+      top: 50%;
+      transform-origin: 0 0; /* Sets the rotation point to top-left of the label */
+      font-size: 13px;
+      font-weight: bold;
+      color: #4e342e;
+    }
+
+    .pointer {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid #ff3d3d; /* Makes a triangle using CSS borders */
+      position: absolute;
+      top: -30px; /* Places it just above the wheel */
+      left: 50%;
+      transform: translateX(-50%); /* Centers the pointer horizontally */
+    }
+
+    #spinBtn {
+      margin-top: 30px;
+      padding: 10px 30px;
+      font-size: 18px;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Modal styles (popup box after spin) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6); /* Semi-transparent black background */
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h2 {
+      color: #388e3c;
+      margin: 0 0 10px;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #ff5722;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Spin the Wheel to Get Your Offer!</h1>
+
+  <div class="wheel-container">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel">
+      <!-- Each label is rotated and positioned around the circle -->
+      <div class="label" style="transform: rotate(22.5deg) translateX(15px)">Free Drink</div>
+      <div class="label" style="transform: rotate(67.5deg) translateX(15px)">Free Dessert</div>
+      <div class="label" style="transform: rotate(112.5deg) translateX(15px)">BOGO offer</div>
+      <div class="label" style="transform: rotate(157.5deg) translateX(15px)">Free Delivery</div>
+      <div class="label" style="transform: rotate(202.5deg) translateX(15px)">100 Credit points</div>
+      <div class="label" style="transform: rotate(247.5deg) translateX(15px)">Free Drink</div>
+      <div class="label" style="transform: rotate(292.5deg) translateX(15px)">Free Vouchers</div>
+      <div class="label" style="transform: rotate(337.5deg) translateX(15px)">Try Again</div>
+    </div>
+  </div>
+
+  <button id="spinBtn" onclick="spin()">SPIN</button>
+
+  <!-- Modal Box -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2 id="popupText">You got an offer!</h2>
+      <button class="close-btn" onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    // Only ONE offer is defined in this array right now; it needs all 8 to match the wheel sections.
+    const offers = [
+      'Free Drink', 'Free Dessert', 'BOGO offer', 'Free Delivery',
+      '100 Credit points', 'Free Drink', 'Free Vouchers', 'Try Again'
+    ];
+
+    let spinning = false; // Used to prevent spinning again during animation
+
+    function spin() {
+      if (spinning) return; // Prevent double spins
+
+      spinning = true; // Lock spinning
+
+      const wheel = document.getElementById("wheel");
+      const popupText = document.getElementById("popupText");
+
+      const randomIndex = Math.floor(Math.random() * offers.length); // Pick a random sector
+      const anglePerSlice = 360 / offers.length; // Each slice size in degrees
+      const rotation =
+        (360 * 5) + // 5 full spins for dramatic effect
+        (360 - randomIndex * anglePerSlice - anglePerSlice / 2); // Lands on the center of chosen slice
+
+      wheel.style.transform = `rotate(${rotation}deg)`; // Trigger rotation animation
+
+      // Wait for 4.5 seconds (animation duration + buffer), then show result
+      setTimeout(() => {
+        popupText.textContent = `Congratulations! You got: ${offers[randomIndex]}`;
+        document.getElementById("modal").style.display = "flex";
+        spinning = false; // Allow future spins
+      }, 4500);
+    }
+
+    // Closes the popup modal
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

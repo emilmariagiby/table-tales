@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .header {
+            background: #4e0303;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .invoice-card {
+            background: white;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            margin-left: 1%;
+            
+        }
+
+        .invoice-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4e0303;
+        }
+
+        .line {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .line strong {
+            font-weight: bold;
+        }
+
+        .line.total {
+            font-size: 18px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+        .wheel-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      margin: 40px auto;
+      margin-right: 5%;
+      margin-top: -20%;
+    }
+
+    .wheel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 8px solid #ff9800;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      background: conic-gradient(
+        #ffe0b2 0deg 45deg,
+        #ffcc80 45deg 90deg,
+        #ffe0b2 90deg 135deg,
+        #ffcc80 135deg 180deg,
+        #ffe0b2 180deg 225deg,
+        #ffcc80 225deg 270deg,
+        #ffe0b2 270deg 315deg,
+        #ffcc80 315deg 360deg
+      );
+      transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    .label {
+  position: absolute;
+  width: 100px;
+  left: 50%;
+  top: 50%;
+  transform-origin: 0 0;
+  font-size: 13px;
+  font-weight: bold;
+  color: #4e342e;
+  text-align: center;
+}
+
+
+    .pointer {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid #d84315;
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #spinBtn {
+      margin-top: 30px;
+      padding: 10px 30px;
+      font-size: 18px;
+      background-color: #ff9800;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h2 {
+      color: #388e3c;
+      margin: 0 0 10px;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #ff5722;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        Checkout Invoice
+    </div>
+
+    <div class="invoice-card">
+        <h2>Invoice Summary</h2>
+
+        <div class="line">
+            <span>Total Amount:</span>
+            <span>₹<span id="totalAmount">0</span></span>
+        </div>
+
+        <div class="line">
+            <span>GST (18%):</span>
+            <span>₹<span id="gstAmount">0</span></span>
+        </div>
+
+        <div class="line">
+            <span>SGST (10%):</span>
+            <span>₹<span id="sgstAmount">0</span></span>
+        </div>
+
+        <div class="line">
+            <span>Service Tax (5%):</span>
+            <span>₹<span id="serviceTaxAmount">0</span></span>
+        </div>
+
+        <div class="line total">
+            <span>Gross Amount:</span>
+            <span>₹<span id="grossAmount">0</span></span>
+        </div>
+    </div>
+
+    <h1>Spin the Wheel to Get Your Offer!</h1>
+
+  <div class="wheel-container">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel">
+      <!-- Labels -->
+      <div class="label" style="transform: rotate(22.5deg) translateX(15px)">10% Off</div>
+      <div class="label" style="transform: rotate(67.5deg) translateX(15px)">Free Dessert</div>
+      <div class="label" style="transform: rotate(112.5deg) translateX(15px)">20% Off</div>
+      <div class="label" style="transform: rotate(157.5deg) translateX(15px)">Free Delivery</div>
+      <div class="label" style="transform: rotate(202.5deg) translateX(15px)">Buy 1 Get 1</div>
+      <div class="label" style="transform: rotate(247.5deg) translateX(15px)">Free Drink</div>
+      <div class="label" style="transform: rotate(292.5deg) translateX(15px)">Rs.100 Off</div>
+      <div class="label" style="transform: rotate(337.5deg) translateX(15px)">Try Again</div>
+    </div>
+  </div>
+
+  <button id="spinBtn" onclick="spin()">SPIN</button>
+
+  <!-- Modal Box -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2 id="popupText">You got an offer!</h2>
+      <button class="close-btn" onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+
+    <script>
+        const totalAmount = parseFloat(localStorage.getItem('totalAmount'));
+
+        const gst = totalAmount * 0.18;
+        const sgst = totalAmount * 0.10;
+        const serviceTax = totalAmount * 0.05;
+        const grossAmount = totalAmount + gst + sgst + serviceTax;
+
+        document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+        document.getElementById('gstAmount').textContent = gst.toFixed(2);
+        document.getElementById('sgstAmount').textContent = sgst.toFixed(2);
+        document.getElementById('serviceTaxAmount').textContent = serviceTax.toFixed(2);
+        document.getElementById('grossAmount').textContent = grossAmount.toFixed(2);
+
+        const offers = [
+      '10% Off', 'Free Dessert', '20% Off', 'Free Delivery',
+      'Buy 1 Get 1', 'Free Drink', 'Rs.100 Off', 'Try Again'
+    ];
+  
+    let spinning = false;
+  
+    function spin() {
+      if (spinning) return;
+  
+      spinning = true;
+      const wheel = document.getElementById("wheel");
+      const popupText = document.getElementById("popupText");
+  
+      const randomIndex = Math.floor(Math.random() * offers.length);
+      const anglePerSlice = 360 / offers.length;
+      const rotation = (360 * 5) + (360 - randomIndex * anglePerSlice - anglePerSlice / 2);
+  
+      // Use backticks for string interpolation
+      wheel.style.transform = `rotate(${rotation}deg)`;
+  
+      setTimeout(() => {
+        popupText.textContent = `Congratulations! You got: ${offers[randomIndex]}`;
+        document.getElementById("modal").style.display = "flex";
+        spinning = false;
+      }, 4500);
+    }
+  
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+    </script>
+
+</body>
+
+</html>

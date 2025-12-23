@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pick a Box - Food Offers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #fff8e1;
+      padding: 50px;
+    }
+    h1 {
+      color: #ff5722;
+    }
+    .boxes {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      background: #ffe0b2;
+      border: 2px solid #ff9800;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 24px;
+      transition: background 0.3s;
+    }
+    .box:hover {
+      background: #ffcc80;
+    }
+    .box.disabled {
+      pointer-events: none;
+      background: #ddd;
+      color: #aaa;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pick a Box to Reveal Your Offer!</h1>
+
+  <div class="boxes">
+    <!-- 9 boxes -->
+    <div class="box" onclick="revealOffer(0)">1</div>
+    <div class="box" onclick="revealOffer(1)">2</div>
+    <div class="box" onclick="revealOffer(2)">3</div>
+    <div class="box" onclick="revealOffer(3)">4</div>
+    <div class="box" onclick="revealOffer(4)">5</div>
+    <div class="box" onclick="revealOffer(5)">6</div>
+    <div class="box" onclick="revealOffer(6)">7</div>
+    <div class="box" onclick="revealOffer(7)">8</div>
+    <div class="box" onclick="revealOffer(8)">9</div>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const offers = [
+      '10% Off', 'Free Dessert', 'Try Again',
+      'Buy 1 Get 1 Free', '20% Off', 'Free Delivery',
+      'Free Drink', 'Rs.100 Off', 'Better Luck Next Time'
+    ];
+
+    const shuffled = offers.sort(() => 0.5 - Math.random());
+    let picked = false;
+
+    function revealOffer(index) {
+      if (picked) return;
+
+      const result = document.getElementById("result");
+      result.textContent = "You got: " + shuffled[index];
+      picked = true;
+
+      // Disable all boxes after one is picked
+      const allBoxes = document.querySelectorAll('.box');
+      allBoxes.forEach(box => box.classList.add('disabled'));
+    }
+  </script>
+
+</body>
+</html>

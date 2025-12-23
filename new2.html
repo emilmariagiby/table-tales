@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .header {
+            background: #4e0303;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .invoice-card {
+            background: white;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .invoice-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4e0303;
+        }
+
+        .line {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .line strong {
+            font-weight: bold;
+        }
+
+        .line.total {
+            font-size: 18px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        Checkout Invoice
+    </div>
+
+    <div class="invoice-card">
+        <h2>Invoice Summary</h2>
+
+        <div class="line">
+            <span>Total Amount:</span>
+            <span>₹<span id="totalAmount">0</span></span>
+        </div>
+
+        <div class="line">
+            <span>GST (18%):</span>
+            <span>₹<span id="gstAmount">0</span></span>
+        </div>
+
+        <div class="line">
+            <span>SGST (10%):</span>
+            <span>₹<span id="sgstAmount">0</span></span>
+        </div>
+
+        <div class="line">
+            <span>Service Tax (5%):</span>
+            <span>₹<span id="serviceTaxAmount">0</span></span>
+        </div>
+
+        <div class="line total">
+            <span>Gross Amount:</span>
+            <span>₹<span id="grossAmount">0</span></span>
+        </div>
+    </div>
+
+    <script>
+        const totalAmount = parseFloat(localStorage.getItem('totalAmount'));
+
+        const gst = totalAmount * 0.18;
+        const sgst = totalAmount * 0.10;
+        const serviceTax = totalAmount * 0.05;
+        const grossAmount = totalAmount + gst + sgst + serviceTax;
+
+        document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+        document.getElementById('gstAmount').textContent = gst.toFixed(2);
+        document.getElementById('sgstAmount').textContent = sgst.toFixed(2);
+        document.getElementById('serviceTaxAmount').textContent = serviceTax.toFixed(2);
+        document.getElementById('grossAmount').textContent = grossAmount.toFixed(2);
+    </script>
+
+</body>
+
+</html>

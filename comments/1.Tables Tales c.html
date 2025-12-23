@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table tales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            color: white;
+            padding: 50px 20px;  /* 50px for top, bottom and 20px for right, left */
+            background: rgba(0, 0, 0, 0.6); /* Dark translucent overlay for text readability */
+            background-image: url("image.jpg"); /* Background image for header */
+            background-size: 100%; /* Stretches image to full width of element */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents image from repeating */
+            height: fit-content; /* Adapts height based on content */
+        }
+
+        header h1 {
+            font-size: 40px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 20px;
+            font-weight: 300;
+            margin: 10px 0;   /* margin: [top/bottom] [left/right] */
+        }
+
+        header input {
+            width: 60%;
+            padding: 15px;
+            border-radius: 25px; /* Makes input box pill-shaped */
+            border: none;
+            font-size: 16px;
+            margin-top: 15px;
+            outline: none; /* Removes default focus outline */
+            text-align: center; /* Centers the placeholder and input text */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow around input */
+        }
+
+        .popular-restaurants {
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .popular-restaurants h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .restaurant-container {
+            display: flex;
+            justify-content: center;  /*This centers the flex items along the horizontal axis.*/
+            gap: 40px; /* Space between items */
+            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+        }
+
+        .restaurant-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center icon and text vertically */
+            text-align: center;
+        }
+
+        .restaurant {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%; /* Makes it a perfect circle */
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center the emoji */
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1); /* Card-style shadow */
+            transition: all 0.3s ease-in-out; /* Smooth hover animation */   /* "all" is for all properties */
+            cursor: pointer; /* Indicates clickable */
+            font-size: 60px; /* Enlarged emoji size */
+        }
+
+        .restaurant:hover {
+            background: #feb202; /* Highlight on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+
+        .cuisine-name {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+            display: block;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Header section with a background image and dark overlay -->
+        <h1>Table Tales</h1>
+        <p>Discover the best food & drinks in your city</p>
+        <input type="text" placeholder="Search for restaurants, cuisine...">
+    </header>
+    
+    <div class="popular-restaurants">
+        <!-- Container displaying popular cuisines -->
+
+        <h2>What's on your mind?</h2>
+
+        <div class="restaurant-container">
+            <!-- Flex container for restaurant icons -->
+
+            <div class="restaurant-item">
+                <div class="restaurant"><a href="italian.html">🍕</a></div>
+                <span class="cuisine-name">Italian</span>    
+            </div>
+
+            <div class="restaurant-item">
+                <div class="restaurant"> <a href="chinese.html">🍜</a></div>
+                <span class="cuisine-name">Chinese</span>
+            </div>
+
+            <div class="restaurant-item">
+                <div class="restaurant"><a href="punjabi.html">🥗</a></div>
+                <span class="cuisine-name">Punjabi</span>
+            </div>
+
+            <div class="restaurant-item">
+                <div class="restaurant"><a href="south_Indian.html">🍛</a></div>
+                <span class="cuisine-name">South Indian</span>
+            </div>
+
+            <div class="restaurant-item">
+                <div class="restaurant"><a href="deserts.html">🍦</a></div>
+                <span class="cuisine-name">Desserts</span>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

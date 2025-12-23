@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table tales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            color: white;
+            padding: 50px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            background-image: url("image.jpg"); /* Your original background */
+            background-size: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: fit-content;
+        }
+
+        header h1 {
+            font-size: 50px;
+            font-weight: 900;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 20px;
+            font-weight: 300;
+            margin: 10px 0;
+        }
+
+        header input {
+            width: 60%;
+            padding: 15px;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            margin-top: 15px;
+            outline: none;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .popular-restaurants {
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .popular-restaurants h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .restaurant-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .restaurant-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .restaurant {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%; /* Makes it circular */
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            font-size: 60px; /* Increased size of icons */
+        }
+
+        .restaurant:hover {
+            background: #feb202;
+            transform: scale(1.05);
+        }
+
+        .cuisine-name {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+            display: block;
+        }
+        a:link {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Table Tales</h1>
+        <p style="font-weight: 700;">Discover the best food & drinks in your city</p>
+        <label for="city-input"></label>
+        <input type="text" id="city-input" placeholder="Search for your city..." list="cities" />
+        <datalist id="cities">
+        <option value="Surat">
+        <option value="Ahmedabad">
+        <option value="Gandhinagar">
+        <option value="Vadodara">
+        <option value="Rajkot">
+        <option value="Anand">
+        <option value="Jamnagar">
+        <option value="Nadiad">
+        <option value="bhavnagar">
+        </datalist>
+    </header>
+    
+    <section class="popular-restaurants">
+        <h2>What's on your mind?</h2>
+        <div class="restaurant-container">
+            
+            <div class="restaurant-item">
+                <div class="restaurant"><a href="italian.html">🍕</a></div>
+                <span class="cuisine-name">Italian</span>
+            </div>
+
+            <div class="restaurant-item">
+                <div class="restaurant"> <a href="chinese.html">🍜</a></div>
+                <span class="cuisine-name">Chinese</span>
+            </div>
+
+            <div class="restaurant-item">
+                <div class="restaurant"><a href="punjabi.html">🥗</a></div>
+                <span class="cuisine-name">Punjabi</span>
+            </div>
+
+            <div class="restaurant-item">
+                <div class="restaurant"><a href="south_Indian.html">🍛</a></div>
+                <span class="cuisine-name">South Indian</span>
+            </div>
+
+            <div class="restaurant-item">
+                <div class="restaurant"><a href="deserts.html">🍦</a></div>
+                <span class="cuisine-name">Desserts</span>
+            </div>
+
+        </div>
+    </section>
+</body>
+</html>
